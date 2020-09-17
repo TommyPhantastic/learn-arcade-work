@@ -136,9 +136,106 @@
 # Note the two equal signs and the quotation marks
 
 # Looping
+#
+# repeat = int(input("How many pleases? "))
+# for i in range(repeat):
+#     # print("I will not chew gum in class.")
+#     print("Please,")
+# print("... can I get the new Lego Hogwarts set.")
 
-repeat = int(input("How many pleases? "))
-for i in range(repeat):
-    # print("I will not chew gum in class.")
-    print("Please,")
-print("... can I get the new Lego Hogwarts set.")
+# for i in range(10):
+#     print(i)
+#
+# for i in range(-5, 5):
+#     print(i)
+#
+# for i in range(10):
+#     print(i + 1)
+#
+# for i in range(1, 12, 2):
+#     print(i)
+
+# for i in range(10,0, -1):
+#     print(i)
+#
+# for i in [4, 6, 2, 1]:
+#     print(i)
+# print("Done")
+#
+# for i in ["oranges", "bananas", "grapes"]:
+#     print(i)
+# print("Done")
+
+# for i in range(10):
+#     print("A", i)
+#
+#     for j in range(10):
+#         print("B", j)
+
+# for hour in range(1, 13):
+#     for minute in range(60):
+#         print(hour, minute)
+#
+#     print("Done")
+#
+# Ask about the following code since it's weird
+# total = 0
+# for i in range(5):
+#     new_number = int(input("Enter a number: "))
+#     total += new_number
+#
+# print ("The total is", total)
+
+# total = 0
+# for i in range(1, 101):
+#     new_number = int(input("Enter a number: "))
+#     total += 1
+#
+# print("The total is", total)
+
+# While loops
+#
+# for i in range(10):
+#     print(i)
+#
+# i = 0
+# while i < 10:
+#     print(i)
+#     i += 1
+#
+# i = 0
+# while range(10):
+#     print(i)
+#     i += 1
+# # Note range onlt works in a for loop, not a while loop
+#
+# i = 0
+# while i < 10:
+#     i += 1
+#     print(i)
+#
+# i = 10
+# while i == 0:
+#     print(i)
+#     i -+1
+# The above code will not work since the condition is not met. It can be fixed by changing the conditional to >= instead.
+
+# quit = "n"
+# while quit == "n":
+#     quit = input("Do you want to quit? ")
+
+# done = False
+#
+# while not done:
+#     quit = input("Do you want to quit? ")
+#     if quit.lower() == "y" or quit.lower() == "yes":
+#         done = True
+#         print("Quitter.")
+#
+#     answer = input("Attack the dragon? ")
+#     if answer.lower() == "y" or answer.lower() == "yes":
+#         done = True
+#         print("Bad choice. you died.")
+
+print("Hi", end = " ")
+print("There")
