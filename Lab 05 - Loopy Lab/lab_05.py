@@ -31,7 +31,7 @@ def draw_section_2():
     for row in range(30):
         for column in range(30):
 
-            if column % 2:
+            if column % 2 == 0:
                 arcade.draw_rectangle_filled(column * 10 + 305, row * 10 + 5, 5, 5, arcade.color.BLACK)
             else:
                 arcade.draw_rectangle_filled(column * 10 + 305, row * 10 + 5, 5, 5, arcade.color.WHITE)
@@ -42,7 +42,7 @@ def draw_section_3():
     for row in range(30):
         for column in range(30):
 
-            if row % 2:
+            if row % 2 == 0:
                 arcade.draw_rectangle_filled(column * 10 + 605, row * 10 + 5, 5, 5, arcade.color.BLACK)
             else:
                 arcade.draw_rectangle_filled(column * 10 + 605, row * 10 + 5, 5, 5, arcade.color.WHITE)
@@ -55,7 +55,7 @@ def draw_section_4():
 
             arcade.draw_rectangle_filled(column * 10 + 905, row * 10 + 5, 5, 5, arcade.color.BLACK)
 
-            if row % 2 and column % 2:
+            if row % 2 == 0 and column % 2 == 0:
                 arcade.draw_rectangle_filled(column * 10 + 895, row * 10 -5 , 5, 5, arcade.color.WHITE)
             # elif column % 2:
             #     arcade.draw_rectangle_filled(column * 10 + 905, row * 10 + 5, 5, 5, arcade.color.BLACK)
