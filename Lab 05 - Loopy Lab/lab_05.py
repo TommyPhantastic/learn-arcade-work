@@ -56,26 +56,40 @@ def draw_section_4():
             arcade.draw_rectangle_filled(column * 10 + 905, row * 10 + 5, 5, 5, arcade.color.BLACK)
 
             if row % 2 and column % 2:
-                arcade.draw_rectangle_filled(column * 10 + 905, row * 10 + 5, 5, 5, arcade.color.WHITE)
+                arcade.draw_rectangle_filled(column * 10 + 895, row * 10 -5 , 5, 5, arcade.color.WHITE)
             # elif column % 2:
             #     arcade.draw_rectangle_filled(column * 10 + 905, row * 10 + 5, 5, 5, arcade.color.BLACK)
 
+"""
+Currently, Sections 4 - 8 are incorrect
+"""
+
 def draw_section_5():
     # Do NOT use 'if' statements to complete 5-8. Manipulate the loops instead.
-    pass
-
+    for row in range(30):
+        for column in range(30):
+            # The below works, but it is an "if" statement and I should use loops instead- if I can't figure it out,
+            # I'll just leave it as an if statement
+            if row - column <= 0:
+                arcade.draw_rectangle_filled(column * 10 + 5, row * 10 + 305, 5, 5, arcade.color.WHITE)
 
 def draw_section_6():
-    pass
-
+    for row in range(30):
+        for column in range(30):
+            if row - column <= 0:
+                arcade.draw_rectangle_filled(-column * 10 + 595, row * 10 + 305, 5, 5, arcade.color.WHITE)
 
 def draw_section_7():
-    pass
-
+    for row in range(30):
+        for column in range(30):
+            if row - column >= 0:
+                arcade.draw_rectangle_filled(column * 10 + 605, row * 10 + 305, 5, 5, arcade.color.WHITE)
 
 def draw_section_8():
-    pass
-
+    for row in range(30):
+        for column in range(30):
+            if row - column >= 0:
+                arcade.draw_rectangle_filled(-column * 10 + 1195, row * 10 + 305, 5, 5, arcade.color.WHITE)
 
 def main():
     # Create a window
