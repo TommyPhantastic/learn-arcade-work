@@ -98,7 +98,12 @@ class MyGame(arcade.Window):
         arcade.draw_rectangle_filled(SCREEN_WIDTH - 110, SCREEN_HEIGHT - 50, 200, 20, arcade.color.BLACK)
         arcade.draw_rectangle_filled(SCREEN_WIDTH - 210 + (self.direction / 300) * 100, SCREEN_HEIGHT - 50, (self.direction / 300) * 200, 20, arcade.color.GREEN)
 
-
+    print("Welcome to Bowling Simulator!")
+    print("Unlike other bowling simulators, this one is text-based and your scores are dependent on how well you can time your space bar presses.")
+    print("The meter on top is your power meter. Press SPACE within just the right range, and you could get a strike.")
+    print("However, if you miss the strike window, you will be penalized with a score reduction.")
+    print("You might want to play it safe and press SPACE earlier rather than later!")
+    print("The bottom meter is the direction meter. Try to stop the meter in the middle. If you stop it too far from the middle, you will see a slight point reduction, so aim in the middle!")
 
     def update(self, delta_time):
         self.physics_engine.update()
@@ -139,7 +144,7 @@ class MyGame(arcade.Window):
                     print ("You've got", pins, "pins. Press SPACE to play again!")
                 else:
                     # Player has a 2 pin reduction for failing to stay inside the middle range of the direction bar
-                    print ("You've got", pins - 2, "pins. Press SPACE to play again!")
+                    print ("You've got", pins - 2, "pin(s). Press SPACE to play again!")
 
         else:
             self.power = 0
