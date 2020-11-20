@@ -1,11 +1,14 @@
 import arcade
 
 # Constants
-SPRITE_SCALING_PIN = 0.5
-SPRITE_SCALING_BALL = 0.5
+SPRITE_SCALING_PIN = 0.01
+SPRITE_SCALING_BALL = .3
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
+GAME_MODE_POWER = 1
+GAME_MODE_DIRECTION = 2
+GAME_MODE_BALL = 3
 
 class MyGame(arcade.Window):
 
@@ -19,6 +22,16 @@ class MyGame(arcade.Window):
         # Physics Engine
         self.physics_engine = None
 
+    #     Power Level
+        self.power = 0
+
+    #     Direction
+        self.direction = 0
+
+    #   Game mode
+        self.gamemode = GAME_MODE_POWER
+
+
     def setup(self):
         arcade.set_background_color(arcade.color.FRENCH_BEIGE)
 
@@ -28,17 +41,18 @@ class MyGame(arcade.Window):
         self.score = 0
 
         # Creating the ball
-        # Ball png is from Kenney.nl/assets/sports-pack
-        self.ball_sprite = arcade.Sprite("images/ball_bowling1.png", SPRITE_SCALING_BALL)
-        self.ball_sprite.center_x = 50
+        # Ball_Bowling png is from Kenney.nl/assets/sports-pack but is currently not in use
+        # Pink Bowling Ball and Green Bowling Ball are both from Clipart-library.com
+        self.ball_sprite = arcade.Sprite("images/pink_bowling_ball.jpg", SPRITE_SCALING_BALL)
+        self.ball_sprite.center_x = (SCREEN_WIDTH / 2)
         self.ball_sprite.center_y = 64
-        self.ball_list.append(self.player_sprite)
+        self.ball_list.append(self.ball_sprite)
 
         # Creating Pins
         # Pin png is from pngkey.com/pngs/bowling-pin/
         pin = arcade.Sprite("images/bowling_pin.png", SPRITE_SCALING_PIN)
-        pin.center_x = 300
-        pin.center_y = 200
+        pin.center_x = (SCREEN_WIDTH / 2)
+        pin.center_y = (SCREEN_HEIGHT / 2)
         self.pin_list.append(pin)
 
         # # --- Place pins inside a loop
@@ -49,10 +63,16 @@ class MyGame(arcade.Window):
         #     self.pin_list.append(pin)
 
         # --- Place pins with a list
-        coordinate_list = [[400, 500],
-                           [470, 500],
-                           [400, 570],
-                           [470, 570]]
+        coordinate_list = [[SCREEN_WIDTH/2, SCREEN_HEIGHT/2 + 150],
+                           [SCREEN_WIDTH/2 - 50, SCREEN_HEIGHT/ 2 + 150],
+                           [SCREEN_WIDTH/2 + 50, SCREEN_HEIGHT/ 2 + 150],
+                           [SCREEN_WIDTH/2 - 25, SCREEN_HEIGHT/ 2 + 75],
+                           [SCREEN_WIDTH/2 + 25, SCREEN_HEIGHT/ 2 + 75],
+                           [SCREEN_WIDTH/2 - 25, SCREEN_HEIGHT/ 2 + 225],
+                           [SCREEN_WIDTH/2 + 25, SCREEN_HEIGHT/ 2 + 225],
+                           [SCREEN_WIDTH/2 - 75, SCREEN_HEIGHT/ 2 + 225],
+                           [SCREEN_WIDTH/2 + 75, SCREEN_HEIGHT/ 2 + 225],
+                                ]
 
         # Loop through coordinates
         for coordinate in coordinate_list:
@@ -61,8 +81,7 @@ class MyGame(arcade.Window):
             pin.center_y = coordinate[1]
             self.pin_list.append(pin)
 
-        # Create the physics engine. Give it a reference to the player, and
-        # the walls we can't run into.
+        # Creates the physics engine.
         self.physics_engine = arcade.PhysicsEngineSimple(self.ball_sprite, self.pin_list)
 
     def on_draw(self):
@@ -70,34 +89,49 @@ class MyGame(arcade.Window):
         self.pin_list.draw()
         self.ball_list.draw()
 
+        # Power Meter
+        arcade.draw_rectangle_filled(SCREEN_WIDTH - 110, SCREEN_HEIGHT - 20, 200, 20, arcade.color.BLACK)
+        arcade.draw_rectangle_filled(SCREEN_WIDTH - 210 + (self.power / 300) * 100, SCREEN_HEIGHT - 20, (self.power / 300) * 200, 20, arcade.color.GREEN)
+
+        # Direction Meter
+        arcade.draw_rectangle_filled(SCREEN_WIDTH - 110, SCREEN_HEIGHT - 50, 200, 20, arcade.color.BLACK)
+        arcade.draw_rectangle_filled(SCREEN_WIDTH - 210 + (self.direction / 300) * 100, SCREEN_HEIGHT - 50, (self.direction / 300) * 200, 20, arcade.color.GREEN)
+
+
+
     def update(self, delta_time):
         self.physics_engine.update()
 
-    # def on_key_press(self, key, modifiers):
-    #     """Called whenever a key is pressed. """
-    #
-    #     if key == arcade.key.UP:
-    #         self.player_sprite.change_y = MOVEMENT_SPEED
-    #     elif key == arcade.key.DOWN:
-    #         self.player_sprite.change_y = -MOVEMENT_SPEED
-    #     elif key == arcade.key.LEFT:
-    #         self.player_sprite.change_x = -MOVEMENT_SPEED
-    #     elif key == arcade.key.RIGHT:
-    #         self.player_sprite.change_x = MOVEMENT_SPEED
+        if self.gamemode == GAME_MODE_POWER:
+            self.power +=5
+            if self.power >= 300:
+                self.power = 0
 
-    def on_key_release(self, key, modifiers):
-        """Called when the user releases a key. """
+        if self.gamemode == GAME_MODE_DIRECTION:
+            self.direction +=5
+            if self.direction >= 300:
+                self.direction = 0
 
-        if key == arcade.key.UP or key == arcade.key.DOWN:
-            self.ball_sprite.change_y = 0
-        elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
-            self.ball_sprite.change_x = 0
+    def on_key_press(self, key, modifiers):
 
-    def main():
-        """ Main method """
-        window = MyGame()
-        window.setup()
-        arcade.run()
+        if key == arcade.key.SPACE and self.gamemode == GAME_MODE_POWER:
+            self.gamemode = GAME_MODE_DIRECTION
 
-    if __name__ == "__main__":
-        main()
+        elif key == arcade.key.SPACE and self.gamemode == GAME_MODE_DIRECTION:
+            self.gamemode = GAME_MODE_BALL
+            print(self.power, self.direction)
+            if self.power < 225:
+                print ("You've got 8 pins.")
+            elif self.power < 250:
+                print ("You've got a strike!")
+            else:
+                print ("You've got a gutter ball.")
+
+def main():
+    """ Main method """
+    window = MyGame()
+    window.setup()
+    arcade.run()
+
+if __name__ == "__main__":
+    main()
