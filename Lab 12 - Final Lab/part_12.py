@@ -1,4 +1,5 @@
 import arcade
+import random
 
 # Constants
 SPRITE_SCALING_PIN = 0.01
@@ -120,12 +121,30 @@ class MyGame(arcade.Window):
         elif key == arcade.key.SPACE and self.gamemode == GAME_MODE_DIRECTION:
             self.gamemode = GAME_MODE_BALL
             print(self.power, self.direction)
-            if self.power < 225:
-                print ("You've got 8 pins.")
-            elif self.power < 250:
-                print ("You've got a strike!")
+            if self.power < 100:
+                pins = random.randrange(5,10)
+                # Player has no penalty for hitting the direction within 25 from the middle of the direction bar
+                if self.direction > 125 and self.direction < 175:
+                    print ("You've got", pins, "pins. Press SPACE to play again!")
+                else:
+                    # Player has a 2 pin reduction for failing to stay inside the middle range of the direction bar
+                    print ("You've got", pins - 2, "pins. Press SPACE to play again!")
+            #     Guarantees a strike
+            elif self.power < 125:
+                print ("You've got a strike! Press SPACE to play again!")
             else:
-                print ("You've got a gutter ball.")
+                # player is punished for waiting too long and for missing the Strike window, hence the reduced score possibilities
+                pins = random.randrange(2,5)
+                if self.direction > 125 and self.direction < 175:
+                    print ("You've got", pins, "pins. Press SPACE to play again!")
+                else:
+                    # Player has a 2 pin reduction for failing to stay inside the middle range of the direction bar
+                    print ("You've got", pins - 2, "pins. Press SPACE to play again!")
+
+        else:
+            self.power = 0
+            self.direction = 0
+            self.gamemode = GAME_MODE_POWER
 
 def main():
     """ Main method """
